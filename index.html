@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>DuckDeckDudes</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.3.5/dist/web3.min.js"></script></head>
+	<body class="is-preload">
+
+		<!-- Sidebar -->
+			<section id="sidebar">
+				<div class="inner">
+					<nav>
+						<ul>
+							<li><a href="#intro">Welcome</a></li>
+							<li><a href="#one">Who we are and Mint</a></li>
+						</ul>
+					</nav>
+				</div>
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Intro -->
+					<section id="intro" class="wrapper style1 fullscreen fade-up">
+						<div class="inner">
+							<h1>DuckDeckDudes</h1>
+							<p>A horde of fluffy yellow creatures surged from the waters and onto the streets. Swiping skateboards from those unsuspecting dudes, they kickstarted their Ethscription journey. Where are they headed? Nobody knows!</a><br />
+							Here is our first <a href="http://dddgame.xyz"> game</a> Why launch a game? Just for fun haha. Why so serious my fam</p>
+							<ul class="actions">
+								<li><a href="#one" class="button scrolly">Learn more</a></li>
+							</ul>
+						</div>
+					</section>
+
+				<!-- One -->
+					<section id="one" class="wrapper style2 spotlights">
+						<section>
+							<a href="#" class="image"><img src="images/pic01.jpg" alt="" data-position="center center" /></a>
+							<div class="content">
+								<div class="inner">
+									<h2>Our Inspiration</h2>
+									<p>Our inspiration is drawn from the artwork of Kento, who, beyond skateboarding, is our absolute favorite! We've embraced the abundant contrast of blues and yellows from his pieces, leading to the design of our very first duck (the one in the game). We hope to bring Kento's artistic traits into Ethscription.</p>
+									<ul class="actions">
+										<li><a href="https://twitter.com/kentoi" class="button">Learn more about Kento</a></li>
+									</ul>
+								</div>
+							</div>
+						</section>
+						<section>
+							<a href="#" class="image"><img src="images/pic02.jpg" alt="" data-position="top center" /></a>
+							<div class="content">
+								<div class="inner">
+									<h2>Details about DuckDeckDudes</h2>
+									<p>Our series boasts 2,222 Dudes, riding skateboards made up of diverse elements (water, grass, lava, lightning, twilight, and... SpongeBob?). 100% original with an almost free minting price. What's there to hesitate about? Join the Duck Gang now! <br/>
+									Supply: 2222(Because 2 is the duck number)<br/>
+									Price: 0.0025(Totally near free as it includes the inscription fee)</p>
+                  <button id="connectButton">Connect Wallet</button>
+                  <button id="mintButton" disabled>Mint</button>
+								</div>
+							</div>
+						</section>
+						
+						<section>
+							<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
+							<div class="content">
+								<div class="inner">
+									<h2>RoadMap</h2>
+									<p>We aspire for our project to become a hallmark in Ethscription. However, as everyone is well aware, the current market conditions are challenging. Thus, we believe that the most crucial immediate step post-launch is to ensure a stable floor price (remember our old Twitter name, "Art_or_Degen"?). We plan to lock the funds obtained from the Mint in the wallet, ensuring that the floor price remains at 3X the launch price during the first week, safeguarding the interests of our backers. Following this, we'll be exploring both Gamefi development and the production of tangible finger skateboards.</p>
+								</div>
+							</div>
+						</section>
+					</section>
+
+
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper style1-alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; <a href="http://dddgame.xyz"> DuckDeckDudes</a></a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+      <script>
+        let web3;
+        let accounts;
+        const contractAddress = "0x23dC71Fd21C43CEF81Ac298f2F8308BDDA2c1dF2";
+    
+        window.addEventListener('load', async () => {
+            if (window.ethereum) {
+                web3 = new Web3(window.ethereum);
+                try {
+                    accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                } catch (error) {
+                    console.error('User denied account access');
+                }
+            } else if (window.web3) {
+                web3 = new Web3(window.web3.currentProvider);
+            } else {
+                console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+            }
+        });
+    
+        document.getElementById("connectButton").addEventListener("click", async () => {
+            if (typeof window.ethereum !== 'undefined') {
+                accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                document.getElementById("mintButton").disabled = false;
+            } else {
+                alert('Please install MetaMask!');
+            }
+        });
+    
+        document.getElementById("mintButton").addEventListener("click", async () => {
+            if (typeof web3 === 'undefined') {
+                return alert('Please connect to MetaMask.');
+            }
+            let amount = web3.utils.toWei('0.0025', 'ether');
+            web3.eth.sendTransaction({
+                from: accounts[0],
+                to: contractAddress,
+                value: amount
+            }).then(function (receipt) {
+                alert('Transaction successful!');
+            }).catch(function (error) {
+                alert('Transaction failed!');
+            });
+        });
+        // ... [其他已有的代码]
+
+// 初始化进度
+async function initializeProgress() {
+    const contractABI = [  // 仅包含我们所需的部分
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "counter",
+            "outputs": [{ "name": "", "type": "uint256" }],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                { "indexed": true, "name": "user", "type": "address" },
+                { "indexed": false, "name": "currentCounter", "type": "uint256" }
+            ],
+            "name": "RequestData",
+            "type": "event"
+        }
+    ];
+    const contractInstance = new web3.eth.Contract(contractABI, contractAddress);
+    
+    // 获取当前计数器值
+    const currentCounter = await contractInstance.methods.counter().call();
+    updateProgressDisplay(currentCounter);
+
+    // 监听RequestData事件来更新进度
+    contractInstance.events.RequestData({}, (error, event) => {
+        if (error) {
+            console.error("Error on event", error);
+            return;
+        }
+        updateProgressDisplay(event.returnValues.currentCounter);
+    });
+}
+
+// 更新进度显示
+function updateProgressDisplay(count) {
+    const totalDataCount = 3333;  // 总数
+    document.getElementById("mintButton").textContent = `Mint ${count}/${totalDataCount}`;
+}
+
+// 在加载时调用initializeProgress
+window.addEventListener('load', initializeProgress);
+
+    </script>
