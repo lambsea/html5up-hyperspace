@@ -138,11 +138,11 @@
                 alert('Transaction failed!');
             });
         });
-        // ... [其他已有的代码]
 
-// 初始化进度
+
+
 async function initializeProgress() {
-    const contractABI = [  // 仅包含我们所需的部分
+    const contractABI = [  
         {
             "constant": true,
             "inputs": [],
@@ -164,11 +164,11 @@ async function initializeProgress() {
     ];
     const contractInstance = new web3.eth.Contract(contractABI, contractAddress);
     
-    // 获取当前计数器值
+
     const currentCounter = await contractInstance.methods.counter().call();
     updateProgressDisplay(currentCounter);
 
-    // 监听RequestData事件来更新进度
+
     contractInstance.events.RequestData({}, (error, event) => {
         if (error) {
             console.error("Error on event", error);
@@ -178,13 +178,12 @@ async function initializeProgress() {
     });
 }
 
-// 更新进度显示
 function updateProgressDisplay(count) {
-    const totalDataCount = 3333;  // 总数
+    const totalDataCount = 888; 
     document.getElementById("mintButton").textContent = `Mint ${count}/${totalDataCount}`;
 }
 
-// 在加载时调用initializeProgress
+
 window.addEventListener('load', initializeProgress);
 
     </script>
